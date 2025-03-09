@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only  src/app.ts",
     "build": "npx tsc",
+    "build-docker": "npx tsc --rootDir /app/src",
     "start": "node src/app.js",
     "consumer": "node src/consumer.js",
     "consumer-dev": "ts-node-dev ./src/consumer.ts"
