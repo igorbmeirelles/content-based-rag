@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { gemini, indexName, pinecone, traceGeneration } from "./startup";
 import { generateEmbeddings } from "./embeddings";
 import { createYoga, createSchema } from "graphql-yoga";
+import { processKafkaMessages } from "./consumer";
 
 dotenv.config();
 

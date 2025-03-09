@@ -1,12 +1,12 @@
 import { Kafka, KafkaMessage } from "kafkajs";
-import fetch from "node-fetch";
 import { RecursiveCharacterTextSplitter } from "@langchain/textsplitters";
 import { JSDOM } from "jsdom";
 import { ulid } from "ulid";
 import { gemini, indexName, pinecone, traceGeneration } from "./startup";
 import { generateEmbeddings } from "./embeddings";
-import data from "./data.json";
 import dotenv from "dotenv";
+import axios from "axios";
+
 dotenv.config();
 
 const kafka = new Kafka({
@@ -32,8 +32,8 @@ function extractTextFromHTML(html: string) {
 
 async function fetchArticleContent(url: string) {
   try {
-    const response = await fetch(url);
-    const html = await response.text();
+    const { data } = await axios.get(url);
+    const html = data;
     const extractedText = extractTextFromHTML(html);
 
     const extractionModel = gemini.getGenerativeModel({
@@ -72,7 +72,7 @@ async function fetchArticleContent(url: string) {
   }
 }
 
-// fetchArticleContent("https://www.bbc.com/news/articles/cy4lj15lyv3o");
+// fetchArticleContent("https://www.bbc.com/news/articles/cy4lj15lyv3o").then(console.log);
 
 async function splitTextIntoChunks(text: string) {
   const splitter = new RecursiveCharacterTextSplitter({
@@ -122,7 +122,7 @@ const consumeMessage = async ({ message }: { message: KafkaMessage }) => {
   processData(messageRequest);
 };
 
-async function processKafkaMessages() {
+export async function processKafkaMessages() {
   await consumer.connect();
   await consumer.subscribe({
     topic: process.env.KAFKA_TOPIC_NAME as string,

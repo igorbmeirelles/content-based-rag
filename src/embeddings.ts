@@ -1,4 +1,3 @@
-import { output } from "./../node_modules/zod-to-json-schema/dist-test/cjs/node_modules/zod/lib/types.d";
 import { gemini, traceGeneration } from "./startup";
 
 export async function generateEmbeddings(text: string) {
@@ -9,7 +8,7 @@ export async function generateEmbeddings(text: string) {
 
   traceGeneration({
     name: "GenerateEbeddings",
-    model: "",
+    model: "text-embedding-004",
     input: text,
     messages: result as any,
   });

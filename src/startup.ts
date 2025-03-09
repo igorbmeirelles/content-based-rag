@@ -1,4 +1,3 @@
-import { input } from "./../node_modules/zod-to-json-schema/dist-test/cjs/node_modules/zod/lib/types.d";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { Langfuse } from "langfuse";

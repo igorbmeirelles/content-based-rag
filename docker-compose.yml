@@ -1,0 +1,22 @@
+services:
+  app:
+    build: .
+    container_name: fastify_app
+    command: [ "npm", "run", "dev" ]
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+
+  listener:
+    build: .
+    container_name: listener
+    command: [ "npm", "run", "consumer-dev" ]
+    ports:
+      - "3001:3000"
+    env_file:
+      - .env
+
+networks:
+  default:
+    driver: bridge

@@ -1,34 +1,44 @@
 {
   "name": "rag",
   "version": "1.0.0",
-  "main": "src/app.js",
+  "description": "",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only  src/app.ts",
-    "build": "tsc",
-    "start": "node dist/index.js",
-    "listen-dev": "ts-node-dev --respawn --transpile-only  src/consumer.ts"
+    "build": "npx tsc",
+    "start": "node src/app.js",
+    "consumer": "node src/consumer.js",
+    "consumer-dev": "ts-node-dev ./src/consumer.ts"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/igorbmeirelles/content-based-rag.git"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "@types/jsdom": "^21.1.7",
-    "@types/node": "^22.13.10",
-    "ts-node": "^10.9.2",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.8.2"
+  "bugs": {
+    "url": "https://github.com/igorbmeirelles/content-based-rag/issues"
   },
+  "homepage": "https://github.com/igorbmeirelles/content-based-rag#readme",
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "@langchain/textsplitters": "^0.1.0",
     "@pinecone-database/pinecone": "^5.1.1",
+    "axios": "^1.8.2",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
     "graphql-yoga": "^5.13.1",
     "jsdom": "^26.0.0",
     "kafkajs": "^2.2.4",
     "langfuse": "^3.36.0",
-    "node-fetch": "^3.3.2",
+    "openai": "^4.86.2",
     "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^22.13.10",
+    "ts-node": "^10.9.2",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.8.2"
   }
 }
