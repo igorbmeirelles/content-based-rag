@@ -44,6 +44,16 @@ For running the Kafka consumer.
 npm run consumer-dev
 ```
 
+my envs. Add the kafka service one
+
+```sh
+PINECONE_API_KEY=pcsk_3ZaCMr_12psKchTLGAnDbp3GoxiKSaQCyVniR5bA3xpe8AFKY1FJ2CY5iYXF3msB8Rbr3C
+GEMINI_API_KEY=AIzaSyA8PDrZrvwrhHs41E5ZV6xuZKMcQmH0Dyg
+LANGFUSE_SECRET_KEY="sk-lf-93378e5c-b1b6-450f-9b73-68996ddef8eb"
+LANGFUSE_PUBLIC_KEY="pk-lf-4413815c-6312-4315-b6f8-7b20a13d4957"
+LANGFUSE_HOST="https://us.cloud.langfuse.com"a
+```
+
 ### Structure
 
 The application was build in two separated services that share some common features.
