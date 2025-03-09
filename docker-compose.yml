@@ -1,6 +1,9 @@
 services:
   app:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./docker/consumer/Dockerfile
+    
     container_name: fastify_app
     command: [ "npm", "run", "dev" ]
     ports:
@@ -10,7 +13,9 @@ services:
     restart: always
 
   listener:
-    build: .
+    build: 
+      context: .
+      dockerfile: ./docker/consumer/Dockerfile
     container_name: listener
     command: [ "npm", "run", "consumer-dev" ]
     restart: always
