@@ -3,7 +3,7 @@
 We are live at
 
 ```sh
-https://content-based-rag.onrender.com/agent
+https://rag.igormeirelles.dev/agent
 ```
 
 send a POST with
