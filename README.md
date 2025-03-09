@@ -1,5 +1,19 @@
 # RAG News
 
+We are live at
+
+```sh
+https://content-based-rag.onrender.com/agent
+```
+
+send a POST with
+
+```json
+{
+    "query": "news on AI" 
+}
+```
+
 ## How to Run
 
 The safest way to run this project is by using a Docker container. A `docker-compose.yml` file has been provided to run both of the services proposed in this challenge.
