@@ -4,15 +4,17 @@ services:
     container_name: fastify_app
     command: [ "npm", "run", "dev" ]
     ports:
-      - "3000:3000"
+      - "9877:3000"
     env_file:
       - .env
+    restart: always
 
   listener:
     build: .
     container_name: listener
     command: [ "npm", "run", "consumer-dev" ]
+    restart: always
     ports:
-      - "3001:3000"
+      - "9878:3000"
     env_file:
       - .env
