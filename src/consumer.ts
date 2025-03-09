@@ -6,6 +6,7 @@ import { gemini, indexName, pinecone, traceGeneration } from "./startup";
 import { generateEmbeddings } from "./embeddings";
 import dotenv from "dotenv";
 import axios from "axios";
+import data from "./data.json";
 
 dotenv.config();
 
@@ -40,7 +41,7 @@ async function fetchArticleContent(url: string) {
       model: "gemini-2.0-flash",
     });
 
-    const input = `Extract the relevant article content and title from the following HTML. Return the result in JSON format with keys 'title' and 'content' (do not return an array, only a object).\n\n${extractedText}`;
+    const input = `Extract the relevant article content and title from the following HTML. Return the result in JSON format with keys 'title' and 'content' and ('date" in the format YYYY-MM-DD) (do not return an array, only a object).\n\n${extractedText}`;
 
     const result = await extractionModel.generateContent({
       contents: [
@@ -67,7 +68,8 @@ async function fetchArticleContent(url: string) {
 
     return parsedResult;
   } catch (error) {
-    console.error("Error fetching article:", error);
+    console.error("Error fetching article:", url);
+    console.error(error);
     return { title: "Unknown", content: "" };
   }
 }
@@ -89,10 +91,12 @@ interface MessagePayload {
 
 const processData = async (message: MessagePayload) => {
   const parsedHTML = await fetchArticleContent(message.url);
+
+  if (parsedHTML.title == "unknown") return;
+
   const article = {
     ...parsedHTML,
     ...message,
-    date: new Date().toISOString(),
   };
   const pineconeIndex = pinecone.Index(indexName);
 
@@ -102,7 +106,9 @@ const processData = async (message: MessagePayload) => {
 
   await Promise.all(
     splittedContent.map(async (content, index) => {
-      const embedding = await generateEmbeddings(content);
+      const embedding = await generateEmbeddings(
+        `${content} ${parsedHTML.date ? `- date: ${parsedHTML.date}` : ""}`
+      );
       await pineconeIndex.upsert([
         {
           id: `${contentId}-chunk-${index}`,
