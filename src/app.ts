@@ -4,6 +4,7 @@ import { readFile } from "node:fs/promises";
 import { gemini, indexName, pinecone, traceGeneration } from "./startup";
 import { generateEmbeddings } from "./embeddings";
 import { createYoga, createSchema } from "graphql-yoga";
+import cors from "@fastify/cors";
 
 dotenv.config();
 
@@ -14,6 +15,10 @@ const promptsFiles = {
   responseTemplateFromJson: `${promptsFolder}/responseformat.md`,
 };
 
+fastify.register(cors, {
+  origin: "*", // Adjust this to your specific needs
+  methods: ["GET", "POST", "OPTIONS"],
+});
 async function generateLLMResponse(query: string) {
   const index = pinecone.Index(indexName);
   const results = await index.query({

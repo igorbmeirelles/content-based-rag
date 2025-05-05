@@ -22,10 +22,12 @@
   },
   "homepage": "https://github.com/igorbmeirelles/content-based-rag#readme",
   "dependencies": {
+    "@fastify/cors": "^11.0.1",
     "@google/generative-ai": "^0.24.0",
     "@langchain/textsplitters": "^0.1.0",
     "@pinecone-database/pinecone": "^5.1.1",
     "axios": "^1.8.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "fastify": "^5.2.1",
     "graphql-yoga": "^5.13.1",
